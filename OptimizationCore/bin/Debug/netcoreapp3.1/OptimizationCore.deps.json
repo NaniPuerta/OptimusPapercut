@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "OptimizationCore/1.0.0": {
+        "dependencies": {
+          "AuxiliaryTools": "1.0.0"
+        },
+        "runtime": {
+          "OptimizationCore.dll": {}
+        }
+      },
+      "AuxiliaryTools/1.0.0": {
+        "runtime": {
+          "AuxiliaryTools.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "OptimizationCore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AuxiliaryTools/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

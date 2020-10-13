@@ -6,4 +6,9 @@
     <UseWindowsForms>true</UseWindowsForms>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Linker\Linker.csproj" />
+    <ProjectReference Include="..\OptimizationCore\OptimizationCore.csproj" />
+  </ItemGroup>
+
 </Project>

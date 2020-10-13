@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Linker;
+using OptimizationCore;
 
 namespace ProyectoModelosII
 {
@@ -18,6 +20,7 @@ namespace ProyectoModelosII
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new Form1());
-        }
+            
+        }        
     }
 }
