@@ -1,0 +1,15 @@
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\bin\Debug\netcoreapp3.1\VisualInterface.exe
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\bin\Debug\netcoreapp3.1\VisualInterface.deps.json
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\bin\Debug\netcoreapp3.1\VisualInterface.runtimeconfig.json
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\bin\Debug\netcoreapp3.1\VisualInterface.runtimeconfig.dev.json
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\bin\Debug\netcoreapp3.1\VisualInterface.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\bin\Debug\netcoreapp3.1\VisualInterface.pdb
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\VisualInterface.csprojAssemblyReference.cache
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\ProyectoModelosII.Form1.resources
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\VisualInterface.csproj.GenerateResource.cache
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\VisualInterface.AssemblyInfoInputs.cache
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\VisualInterface.AssemblyInfo.cs
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\VisualInterface.csproj.CoreCompileInputs.cache
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\VisualInterface.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\VisualInterface.pdb
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\VisualInterface.genruntimeconfig.cache
