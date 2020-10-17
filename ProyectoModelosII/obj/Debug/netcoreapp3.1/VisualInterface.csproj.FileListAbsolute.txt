@@ -13,3 +13,10 @@ C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcore
 C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\VisualInterface.dll
 C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\VisualInterface.pdb
 C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\VisualInterface.genruntimeconfig.cache
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\bin\Debug\netcoreapp3.1\AuxiliaryTools.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\bin\Debug\netcoreapp3.1\Linker.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\bin\Debug\netcoreapp3.1\OptimizationCore.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\bin\Debug\netcoreapp3.1\Linker.pdb
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\bin\Debug\netcoreapp3.1\OptimizationCore.pdb
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\bin\Debug\netcoreapp3.1\AuxiliaryTools.pdb
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\VisualInterface.csproj.CopyComplete

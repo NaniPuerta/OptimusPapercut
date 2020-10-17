@@ -6,26 +6,17 @@
   "compilationOptions": {},
   "targets": {
     ".NETCoreApp,Version=v3.1": {
-      "VisualInterface/1.0.0": {
-        "dependencies": {
-          "Linker": "1.0.0",
-          "OptimizationCore": "1.0.0"
-        },
-        "runtime": {
-          "VisualInterface.dll": {}
-        }
-      },
-      "AuxiliaryTools/1.0.0": {
-        "runtime": {
-          "AuxiliaryTools.dll": {}
-        }
-      },
       "Linker/1.0.0": {
         "dependencies": {
           "OptimizationCore": "1.0.0"
         },
         "runtime": {
           "Linker.dll": {}
+        }
+      },
+      "AuxiliaryTools/1.0.0": {
+        "runtime": {
+          "AuxiliaryTools.dll": {}
         }
       },
       "OptimizationCore/1.0.0": {
@@ -39,17 +30,12 @@
     }
   },
   "libraries": {
-    "VisualInterface/1.0.0": {
+    "Linker/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
     },
     "AuxiliaryTools/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "Linker/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
