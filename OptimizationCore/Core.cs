@@ -47,7 +47,6 @@ namespace OptimizationCore
         {
             this.variant_vector = new double[0];
             this.cutPoints = new List<(int cutPoint, int cutDir, int piece)>();
-            //this.PieceDistribution = new List<(int startPointX, int startPointY, int pieceIndex)>();
             this.PieceDistribution = new List<Piece>();
         }
 
@@ -57,7 +56,6 @@ namespace OptimizationCore
             Array.Copy(variant, this.variant_vector, variant.Length);
             this.cost = cost;
             this.cutPoints = new List<(int cutPoint, int cutDir, int piece)>();
-            // this.PieceDistribution = new List<(int startPointX, int startPointY, int pieceIndex)>();
             this.PieceDistribution = new List<Piece>();        
         }
 
@@ -122,9 +120,6 @@ namespace OptimizationCore
                 this.varIndex[i] = i;
                 for (int j = 0; j < this.problem.size; j++)
                 {
-                    //double temp = solution[i].variant_vector[j];
-                    //if (temp != 0)
-                    //{ this.invB[i, j] = 1 / temp; }
                     this.invB[i, j] = solution[i].variant_vector[j];
                 }
             }
@@ -264,29 +259,7 @@ namespace OptimizationCore
             SolutionCell result = SolveRecurrence(j, k, solutionMatrix, 0,0);
 
             double[] variant = new double[problem.pieces.Length];
-            //List<SolutionCell> path = new List<SolutionCell>();
-
-            //ExtractCutPattern(solutionMatrix, j, k, path, variant);
             CutPattern pattern = new CutPattern(variant, 1);
-            /*
-            for (int i = path.Count - 1; i >= 0; i--)
-            {
-                SolutionCell temp = path[i];
-                if(temp.DirOfCut == DirectionOfCut.Vertical)
-                {
-                    pattern.AddCutPoint(temp.OffsetL + ReticularPointsL[temp.Index], 0, -1);
-                }
-                if(temp.DirOfCut == DirectionOfCut.Horizontal)
-                {
-                    pattern.AddCutPoint(temp.OffsetW + ReticularPointsW[temp.Index], 1, -1);
-                }
-                if(!temp.IsCut)
-                {
-                    if (temp.Index > -1)
-                        pattern.AddCutPoint(temp.OffsetL + problem.pieces[temp.Index].length, -1, temp.Index);
-                }
-            }
-            */
             ExtractPiecePattern(solutionMatrix, j, k, pattern.PieceDistribution, variant);
             return pattern;
         }
@@ -303,14 +276,13 @@ namespace OptimizationCore
             lengths.Sort();
             widths.Sort();
 
-            //List<(int,int)> parameterControl = new List<(int, int)>();
-
+            
             LinkedList<int> tempL = new LinkedList<int>();
             LinkedList<int> tempW = new LinkedList<int>();
             tempL.AddFirst(0);
             tempW.AddFirst(0);
-            FindReticularPoints(0, 0, tempL, lengths, problem.stock.length);//, parameterControl);
-            FindReticularPoints(0, 0, tempW, widths, problem.stock.width);//, parameterControl);
+            FindReticularPoints(0, 0, tempL, lengths, problem.stock.length);
+            FindReticularPoints(0, 0, tempW, widths, problem.stock.width);
 
             ReticularPointsL = tempL.ToArray<int>();
             ReticularPointsW = tempW.ToArray<int>();
@@ -324,10 +296,6 @@ namespace OptimizationCore
 
         private void FindReticularPoints(int count, int index, LinkedList<int> points, List<int> values, int MaxValue)//, List<(int,int)> control)
         {
-            //if (control.Contains((count, index)))
-            //    return;
-            //else control.Add((count, index));
-
             int temp_count = count + values[index];
             if (temp_count <= MaxValue)
             {
@@ -359,7 +327,6 @@ namespace OptimizationCore
         {
             LinkedList<int> result = new LinkedList<int>();
             result.AddFirst(0);
-            //List<int> result = new List<int>();
             for (int i = 0; i < reticularPointsArray.Length; i++)
             {
                InsertPoint(result, GetConditionedMax(reticularPointsArray, maxLength - reticularPointsArray[i]).valueOfPoint);
@@ -544,9 +511,7 @@ namespace OptimizationCore
                 if (temp.Index > -1)
                 {
                     pieces[temp.Index]++;
-                //    dist.Add(new Piece(temp.OffsetL, temp.OffsetW, problem.pieces[temp.Index].length, problem.pieces[temp.Index].width, temp.Index));
                 }
-               // else
                 dist.Add(new Piece(temp.OffsetL, temp.OffsetW, ReticularPointsL[j], ReticularPointsW[k], temp.Index));
                 return;
             }
@@ -563,6 +528,10 @@ namespace OptimizationCore
 
         }
 
+        private void CalculateSolutionMatrix(int j, int k, SolutionCell2[,] solutionMatrix)
+        {
+            
+        }
     }
 
     public class Piece
