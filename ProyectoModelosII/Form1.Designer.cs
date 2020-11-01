@@ -29,18 +29,9 @@
         private void InitializeComponent()
         {
             this.nextBtn = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            
             this.SuspendLayout();
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Location = new System.Drawing.Point(58, 29);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(684, 378);
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
-            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
-            this.pictureBox1.Paint += new System.Windows.Forms.PaintEventHandler(this.pictureBox1_Paint);
+            
             // 
             // nextBtn
             // 
@@ -51,7 +42,7 @@
             this.nextBtn.TabIndex = 1;
             this.nextBtn.Text = "Next";
             this.nextBtn.UseVisualStyleBackColor = true;
-            this.nextBtn.Click += new System.EventHandler(this.nextBtn_Click);
+            
             // 
             // button1
             // 
@@ -64,7 +55,6 @@
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.Name = "Form1";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
 
         }
