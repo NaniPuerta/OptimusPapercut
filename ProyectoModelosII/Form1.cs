@@ -21,7 +21,12 @@ namespace ProyectoModelosII
 
         private void pictureBox1_Click(object sender, EventArgs e)
         {
-
+            Pen p = new Pen(Color.Black);
+            e.Graphics.Clear(pictureBox1.BackColor);
+            foreach (Rectangle item in pieces)
+            {
+                e.Graphics.DrawRectangle(p, item);
+            }
         }
 
         
@@ -30,4 +35,6 @@ namespace ProyectoModelosII
         {
         }
     }
+
+    
 }
