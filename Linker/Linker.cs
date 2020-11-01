@@ -5,14 +5,11 @@ using OptimizationCore;
 
 namespace Linker
 {
-    public class Linker
+    public static class Linker
     {
-        public Linker()
-        {
+        
 
-        }
-
-        public CutPattern[] FindSolution(IEnumerable<int> pieceLengths, IEnumerable<int> pieceWidths, IEnumerable<int> pieceDemands, int stockLength, int stockWidth, int stockCost)
+        public static CutPattern[] FindSolution(IEnumerable<int> pieceLengths, IEnumerable<int> pieceWidths, IEnumerable<int> pieceDemands, int stockLength, int stockWidth, int stockCost)
         {
             int[] pLengths = pieceLengths.ToArray<int>();
             int[] pWidths = pieceWidths.ToArray<int>();
