@@ -2,6 +2,7 @@
 using AuxiliaryTools;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 
 namespace OptimizationCore
 {
@@ -47,19 +48,20 @@ namespace OptimizationCore
 
         public int timesRepeated { get; private set; }
 
-        public List<(int cutPoint, int cutDir, int piece)> cutPoints { get; private set; }
+        //public List<(int cutPoint, int cutDir, int piece)> cutPoints { get; private set; }
 
         //public List<(int startPointX, int startPointY, int pieceIndex)> PieceDistribution { get; set; }
 
-        public List<Piece> PieceDistribution { get; set; }
+        //public List<Piece> PieceDistribution { get; set; }
 
+        public CutTree cuts { get; private set; }
         
         //cutDir is 0 if it's a horizontal cut, 1 is it's vertical. piece is the index of the piece that fits the space before the cut point
         public CutPattern()
         {
             this.variant_vector = new double[0];
-            this.cutPoints = new List<(int cutPoint, int cutDir, int piece)>();
-            this.PieceDistribution = new List<Piece>();
+            //this.cutPoints = new List<(int cutPoint, int cutDir, int piece)>();
+            //this.PieceDistribution = new List<Piece>();
         }
 
         public CutPattern(double[] variant, int cost)
@@ -67,14 +69,14 @@ namespace OptimizationCore
             this.variant_vector = new double[variant.Length];
             Array.Copy(variant, this.variant_vector, variant.Length);
             this.cost = cost;
-            this.cutPoints = new List<(int cutPoint, int cutDir, int piece)>();
-            this.PieceDistribution = new List<Piece>();        
+            //this.cutPoints = new List<(int cutPoint, int cutDir, int piece)>();
+            //this.PieceDistribution = new List<Piece>();        
         }
 
-        public void AddCutPoint(int point, int direction, int piece)
-        {
-            this.cutPoints.Add((point, direction, piece));
-        }
+        //public void AddCutPoint(int point, int direction, int piece)
+        //{
+        //    this.cutPoints.Add((point, direction, piece));
+        //}
 
         public void SetRepetition(int times)
         {
@@ -85,7 +87,10 @@ namespace OptimizationCore
             this.timesRepeated += times;
         }
 
-
+        internal void SetCutsTree(CutTree tree)
+        {
+            this.cuts = tree;
+        }
         public string PrintPattern()
         {
             string result = "repeat " + this.timesRepeated + " times: ";
@@ -112,10 +117,10 @@ namespace OptimizationCore
         private List<(int value, int index)>[] partialPointsL;
         private List<(int value, int index)>[] partialPointsW;
 
-        public Simplex()
-        {
+        //public Simplex()
+        //{
 
-        }
+        //}
 
         public Simplex(OptimizationProblem problem)
         {
@@ -136,10 +141,7 @@ namespace OptimizationCore
                 this.cb[i] = solution[i].cost;
                 this.varIndex[i] = i;
                 for (int j = 0; j < this.problem.size; j++)
-                {
-                    //double temp = solution[i].variant_vector[j];
-                    //if (temp != 0)
-                    //{ this.invB[i, j] = 1 / temp; }
+                {                    
                     this.invB[i, j] = solution[i].variant_vector[j];
                 }
             }
@@ -200,6 +202,7 @@ namespace OptimizationCore
                 invBb[i] += invBb[pivot] * atemp[i];
             }
         }
+        
         private int FindPivot(MyMatrix b, MyMatrix atemp)
         {
             int pivot = -1;
@@ -240,33 +243,36 @@ namespace OptimizationCore
         private CutPattern[] GenerateInitialSolution()
         {
             int pieces = problem.size;
+            (int slength, int swidth, int scost) = problem.stock;
             CutPattern[] result = new CutPattern[pieces];
             for (int i = 0; i < pieces; i++)
             {
-                int ammInL = problem.stock.length / problem.pieces[i].length;
-                int ammInW = problem.stock.width / problem.pieces[i].width;
+                int plength = problem.pieces[i].length;
+                int ammInL = slength / plength;
+                int pwidth = problem.pieces[i].width;
+                int ammInW = swidth / pwidth;
                 int totalAmmount = ammInL * ammInW;
                 //double[] variant = new double[pieces];
                 //variant[i] = totalAmmount;
-                result[i] = new CutPattern(new double[pieces], problem.stock.cost);
-                result[i].variant_vector[i] = totalAmmount;
-                for (int j = 1; j <= ammInL; j++)
-                {
-                    result[i].AddCutPoint(j * problem.pieces[i].length, 1, i);
-                }
-                for (int j = 0; j < ammInW; j++)
-                {
-                    result[i].AddCutPoint(j * problem.pieces[i].width, 0, i);
-                }
-                for (int j = 0; j <= ammInL; j++)
-                {
-                    for (int k = 0; k <= ammInW; k++)
-                    {
-                        int l = problem.pieces[i].length;
-                        int w = problem.pieces[i].width;
-                        result[i].PieceDistribution.Add(new Piece(j * l, k * w, l, w, i));
-                    }
-                }
+                result[i] = new CutPattern(new double[pieces], scost);
+                //for (int j = 1; j <= ammInL; j++)
+                //{
+                //    result[i].AddCutPoint(j * problem.pieces[i].length, 1, i);
+                //}
+                //for (int j = 0; j < ammInW; j++)
+                //{
+                //    result[i].AddCutPoint(j * problem.pieces[i].width, 0, i);
+                //}
+                //for (int j = 0; j <= ammInL; j++)
+                //{
+                //    for (int k = 0; k <= ammInW; k++)
+                //    {
+                //        int l = problem.pieces[i].length;
+                //        int w = problem.pieces[i].width;
+                //        result[i].PieceDistribution.Add(new Piece(j * l, k * w, l, w, i));
+                //    }
+                //}
+                result[i].SetCutsTree(CutTreeForInitialPattern(slength, swidth, new Piece(plength, pwidth, i)));
             }
             return result;
         }
@@ -277,11 +283,11 @@ namespace OptimizationCore
             int k = ReticularPointsW.Length - 1;
             SolutionCell[,] solutionMatrix = new SolutionCell[j + 1, k + 1];
             InitializeSolMatrix(solutionMatrix);
-            //SolutionCell result = SolveRecurrence(j, k, solutionMatrix, 0,0);
             CalculateSolMatrix(solutionMatrix);
             CutPattern pattern = new CutPattern(new double[problem.pieces.Length], 1);
-            
-            ExtractPiecePattern(solutionMatrix, j, k, pattern);
+
+            pattern.SetCutsTree(ExtractCutTree(solutionMatrix, j, k));
+            //ExtractPiecePattern(solutionMatrix, j, k, pattern);
             return pattern;
         }
 
@@ -492,130 +498,12 @@ namespace OptimizationCore
             }
             return -1;
         }
-
-        /*
-        private SolutionCell SolveRecurrence(int j, int k, SolutionCell[,] solutionMatrix, int offsetL, int offsetW)
-        {
-            double max = -1;
-            (double value, TypeOfCell type, int index, DirectionOfCut dir, int offs1, int offs2) maxL = (-1, TypeOfCell.None, -1, DirectionOfCut.None, offsetL, offsetW);
-            for (int i = 1; i <= j / 2; i++)
-            {
-                double tempmax = SolveRecurrence(i, k, solutionMatrix, offsetL, offsetW).Value + SolveRecurrence(partialPointsL[j][i].index, k, solutionMatrix, offsetL + ReticularPointsL[i], offsetW).Value;
-                if (tempmax > max)
-                {
-                    max = tempmax;
-                    maxL = (max, TypeOfCell.Cut, i, DirectionOfCut.Vertical, offsetL, offsetW);
-                }
-            }
-            max = -1;
-            (double value, TypeOfCell type, int index, DirectionOfCut dir, int offs1, int offs2) maxW = (-1, TypeOfCell.None, -1, DirectionOfCut.None, offsetL, offsetW);
-            for (int i = 1; i <= k / 2; i++)
-            {
-                double tempmax = SolveRecurrence(j, i, solutionMatrix, offsetL, offsetW).Value + SolveRecurrence(j, partialPointsW[k][i].index, solutionMatrix, offsetL, offsetW + ReticularPointsW[i]).Value;
-                if (tempmax > max)
-                {
-                    max = tempmax;
-                    maxW = (max, TypeOfCell.Cut, i, DirectionOfCut.Horizontal, offsetL, offsetW);
-                }
-            }
+               
+        private CutTree ExtractCutTree(SolutionCell[,] solutionMatrix, int j, int k)
+        {            
             SolutionCell temp = solutionMatrix[j, k];
-           
-            (double value, TypeOfCell type, int index, DirectionOfCut dir, int offs1, int offs2) maxOverall = (temp.Value, temp.Type, temp.Index, temp.DirOfCut, offsetL, offsetW);
-            if (maxL.value >= maxOverall.value)
-                maxOverall = maxL;
-            if (maxW.value >= maxOverall.value)
-                maxOverall = maxW;
-
-            solutionMatrix[j, k] = new SolutionCell(maxOverall);
-            return solutionMatrix[j, k];
-
-        }
-
-
-        
-        private SolutionCell2 SolveRecurrence2(int j, int k, SolutionCell2[,] solutionMatrix)
-        {
-            if (solutionMatrix[j, k] != null)
-            {
-                return solutionMatrix[j, k];
-            }
-            else
-            {
-                double max = -1;
-                (double value, bool isCut, int index, DirectionOfCut dir) maxL = (-1, false, -1, DirectionOfCut.None);
-                for (int i = 0; i <= j / 2; i++)
-                {
-                    double tempmax = SolveRecurrence2(i, k, solutionMatrix).Value + SolveRecurrence2(partialPointsL[j][i].index, k, solutionMatrix).Value;
-                    if (tempmax > max)
-                    {
-                        max = tempmax;
-                        maxL = (max, true, i, DirectionOfCut.Vertical);
-                    }
-                }
-                max = -1;
-                (double value, bool isCut, int index, DirectionOfCut dir) maxW = (-1, false, -1, DirectionOfCut.None);
-                for (int i = 0; i <= k/2; i++)
-                {
-                    double tempmax = SolveRecurrence2(j, i, solutionMatrix).Value + SolveRecurrence2(j, partialPointsW[k][i].index, solutionMatrix).Value;
-                    if(tempmax > max)
-                    {
-                        max = tempmax;
-                        maxW = (max, true, i, DirectionOfCut.Horizontal);
-                    }
-                }
-                (double value, bool isCut, int index, DirectionOfCut dir) maxP = (-1, false, -1, DirectionOfCut.None);
-                max = double.MinValue;
-                double ptempmax = double.MinValue;
-                for (int i = 0; i < problem.pieces.Length; i++)
-                {
-                    if (problem.pieces[j].length > ReticularPointsL[i] || problem.pieces[k].width > ReticularPointsW[k])
-                        continue;
-                    ptempmax = dt[i];
-                    if(ptempmax > max)
-                    {
-                        max = ptempmax;
-                        maxP = (max, false, i, DirectionOfCut.None);
-                    }
-                }
-                (double value, bool isCut, int index, DirectionOfCut dir) maxOverall = (0, false, -1, DirectionOfCut.None);
-                if (maxL.value > maxOverall.value)
-                    maxOverall = maxL;
-                if (maxW.value > maxOverall.value)
-                    maxOverall = maxW;
-                if (maxP.value > maxOverall.value)
-                    maxOverall = maxP;
-
-                solutionMatrix[j, k] = new SolutionCell2(maxOverall);
-                return solutionMatrix[j, k];
-            }
-        }*/
-
-        private void ExtractCutPattern(SolutionCell[,] solutionMatrix, int j, int k, List<SolutionCell> patternPath, double[] pieces)
-        {
-            SolutionCell temp = solutionMatrix[j, k];           
-            patternPath.Add(temp);
-            if(temp.Type == TypeOfCell.Cut)
-            {
-                if (temp.DirOfCut == DirectionOfCut.Vertical)
-                {
-                    ExtractCutPattern(solutionMatrix, temp.Index, k, patternPath, pieces);
-                    ExtractCutPattern(solutionMatrix, partialPointsL[j][temp.Index].index, k, patternPath, pieces);
-                }
-                else
-                {
-                    ExtractCutPattern(solutionMatrix, j, temp.Index, patternPath, pieces);
-                    ExtractCutPattern(solutionMatrix, j, partialPointsW[k][temp.Index].index, patternPath, pieces);
-                }
-            }
-            else if(temp.Type == TypeOfCell.Piece)
-            {
-                pieces[temp.Index]++;
-            }
-        }
-
-        private void ExtractPiecePattern(SolutionCell[,] solutionMatrix, int j, int k, CutPattern pattern)
-        {
-            SolutionCell temp = solutionMatrix[j, k];
+            int length = ReticularPointsL[j];
+            int width = ReticularPointsW[k];
 
             switch (temp.Type)
             {
@@ -623,38 +511,113 @@ namespace OptimizationCore
                     switch (temp.DirOfCut)
                     {
                         case DirectionOfCut.Vertical:
-                            ExtractPiecePattern(solutionMatrix, temp.Index, k, pattern);
-                            ExtractPiecePattern(solutionMatrix, partialPointsL[j][temp.Index].index, k, pattern);
-                            break;
+                            int rightrect = partialPointsL[j][temp.Index].index;
+                            return new CutTree(length, width, temp, ExtractCutTree(solutionMatrix, temp.Index, k), ExtractCutTree(solutionMatrix, rightrect, k));                            
                         case DirectionOfCut.Horizontal:
-                            ExtractPiecePattern(solutionMatrix, j, temp.Index, pattern);
-                            ExtractPiecePattern(solutionMatrix, j, partialPointsW[k][temp.Index].index, pattern);
-                            break;
+                            int downrect = partialPointsW[k][temp.Index].index;
+                            return new CutTree(length, width, temp, ExtractCutTree(solutionMatrix, j, temp.Index), ExtractCutTree(solutionMatrix, j, downrect));                           
                     }
-                    break;
+                    return null;
+                
                 case TypeOfCell.Piece:
-                    pattern.PieceDistribution.Add(new Piece(temp.OffsetL, temp.OffsetW, ReticularPointsL[j], ReticularPointsW[k], temp.Index));
-                    pattern.variant_vector[temp.Index]++;
-                    break;
+                    return new CutTree(length, width, temp, null, null);
+                
                 case TypeOfCell.Waste:
-                    pattern.PieceDistribution.Add(new Piece(temp.OffsetL, temp.OffsetW, ReticularPointsL[j], ReticularPointsW[k], temp.Index));
-                    break;
-            }            
+                    return new CutTree(length, width, temp, null, null);
+                
+                default:
+                    return null;
+            }
+
         }
+
+        private CutTree CutTreeForInitialPattern(int maxlength, int maxwidth, Piece piece)
+        {
+            LinkedList<int> temp = new LinkedList<int>();
+            List<int> temp2 = new List<int>();
+            temp2.Add(piece.length);
+            FindReticularPoints(0, 0, temp, temp2, maxlength);
+            int[] retPointsL = temp.ToArray();
+            temp.Clear();
+            temp2.Clear(); temp2.Add(piece.width);
+            FindReticularPoints(0, 0, temp, temp2, maxwidth);
+            int[] retPointsW = temp.ToArray();
+            return ExtractVert(retPointsL, retPointsW, retPointsL.Length, retPointsW.Length, piece);
+        }
+        
+        private CutTree ExtractVert(int[] r, int[] s, int j, int k, Piece p)
+        {
+            if (j == 0)
+                return null;
+            int rlen = r[j] - r[j - 1];
+            if (rlen == p.length)
+            {
+                return new CutTree(r[j], s[k], TypeOfCell.Cut, j-1, DirectionOfCut.Vertical, ExtractVert(r, s, j - 1, k, p), ExtractHorz(rlen, s, k, p));
+            }
+            if (rlen != p.length)
+            {
+                return new CutTree(r[j], s[k], TypeOfCell.Cut, j-1, DirectionOfCut.Vertical, ExtractVert(r, s, j - 1, k, p), new CutTree(rlen, s[k], TypeOfCell.Waste, -1, DirectionOfCut.None, null, null));
+            }
+            return null;
+        }
+
+        private CutTree ExtractHorz(int rectlen, int[] s, int k, Piece p)
+        {
+            if (k == 0)
+                return null;
+            int rwidth = s[k] - s[k - 1];
+            if (rwidth == p.width)
+            {
+                return new CutTree(rectlen, s[k], TypeOfCell.Cut, k - 1, DirectionOfCut.Horizontal, ExtractHorz(rectlen, s, k - 1, p), new CutTree(rectlen, s[k] - s[k - 1], TypeOfCell.Piece, p.index, DirectionOfCut.None, null, null));
+            }
+            if (rwidth != p.width)
+            {
+                return new CutTree(rectlen, s[k], TypeOfCell.Cut, k - 1, DirectionOfCut.Horizontal, ExtractHorz(rectlen, s, k - 1, p), new CutTree(rectlen, s[k] - s[k - 1], TypeOfCell.Waste, -1, DirectionOfCut.None, null, null));
+            }
+            return null;
+        }
+        //private void ExtractPiecePattern(SolutionCell[,] solutionMatrix, int j, int k, CutPattern pattern)
+        //{
+        //    SolutionCell temp = solutionMatrix[j, k];
+
+        //    switch (temp.Type)
+        //    {
+        //        case TypeOfCell.Cut:
+        //            switch (temp.DirOfCut)
+        //            {
+        //                case DirectionOfCut.Vertical:
+        //                    ExtractPiecePattern(solutionMatrix, temp.Index, k, pattern);
+        //                    ExtractPiecePattern(solutionMatrix, partialPointsL[j][temp.Index].index, k, pattern);
+        //                    break;
+        //                case DirectionOfCut.Horizontal:
+        //                    ExtractPiecePattern(solutionMatrix, j, temp.Index, pattern);
+        //                    ExtractPiecePattern(solutionMatrix, j, partialPointsW[k][temp.Index].index, pattern);
+        //                    break;
+        //            }
+        //            break;
+        //        case TypeOfCell.Piece:
+        //            pattern.PieceDistribution.Add(new Piece(temp.OffsetL, temp.OffsetW, ReticularPointsL[j], ReticularPointsW[k], temp.Index));
+        //            pattern.variant_vector[temp.Index]++;
+        //            break;
+        //        case TypeOfCell.Waste:
+        //            pattern.PieceDistribution.Add(new Piece(temp.OffsetL, temp.OffsetW, ReticularPointsL[j], ReticularPointsW[k], temp.Index));
+        //            break;
+        //    }            
+        //}
     }
 
-    public class Piece
+    internal class Piece
     {
-        public int startX;
-        public int startY;
-        public int length;
-        public int width;
-        public int index;
+        //internal int startX;
+        //internal int startY;
+        internal int length;
+        internal int width;
+        internal int index;
 
-        public Piece(int startx, int starty, int length, int width, int index)
+        internal Piece(int length, int width, int index)
         {
-            this.startX = startx;
-            this.startY = starty;
+            //this.startX = startx;
+            //this.startY = starty;
             this.length = length;
             this.width = width;
             this.index = index;
@@ -745,43 +708,74 @@ namespace OptimizationCore
         }
     }
 
-    internal class SolutionCell2
-    {
-        internal double Value { get; }
-        internal bool IsCut { get; }
-        internal int Index { get; }
-        internal DirectionOfCut DirOfCut { get; }
+    //internal class SolutionCell2
+    //{
+    //    internal double Value { get; }
+    //    internal bool IsCut { get; }
+    //    internal int Index { get; }
+    //    internal DirectionOfCut DirOfCut { get; }
 
 
-        public SolutionCell2(double value, bool isCut, int indx, DirectionOfCut dir)
-        {
-            this.Value = value;
-            this.IsCut = isCut;
-            this.Index = indx;
-            this.DirOfCut = dir;
-        }
-        public SolutionCell2((double value, bool isCut, int index, DirectionOfCut dir) cell)
-        {
-            this.Value = cell.value;
-            this.IsCut = cell.isCut;
-            this.Index = cell.index;
-            this.DirOfCut = cell.dir;
-        }
-    }
+    //    public SolutionCell2(double value, bool isCut, int indx, DirectionOfCut dir)
+    //    {
+    //        this.Value = value;
+    //        this.IsCut = isCut;
+    //        this.Index = indx;
+    //        this.DirOfCut = dir;
+    //    }
+    //    public SolutionCell2((double value, bool isCut, int index, DirectionOfCut dir) cell)
+    //    {
+    //        this.Value = cell.value;
+    //        this.IsCut = cell.isCut;
+    //        this.Index = cell.index;
+    //        this.DirOfCut = cell.dir;
+    //    }
+    //}
 
 
-    internal enum TypeOfCell
+    public enum TypeOfCell
     {
         Cut,
         Piece,
         Waste,
         None
     }
-    internal enum DirectionOfCut
+    public enum DirectionOfCut
     {
         Vertical,
         Horizontal,
         None
+    }
+
+    public class CutTree
+    {
+        public int Length { get; private set; }
+        public int Width { get; private set; }
+        public TypeOfCell Kind { get; private set; }
+        public DirectionOfCut CutDirection { get; private set; }
+        public int IndexOfCutOrPiece { get; private set; }
+
+        public CutTree Left { get; private set; }
+        public CutTree Right { get; private set; }
+
+        public CutTree(int rectLength, int rectWidth, TypeOfCell kind, int index, DirectionOfCut dir, CutTree left, CutTree right)
+        {
+            this.Length = rectLength; this.Width = rectWidth; this.IndexOfCutOrPiece = index;
+            this.Kind = kind; this.CutDirection = dir;
+            this.Left = left;
+            this.Right = right;
+        }
+
+        internal CutTree(int rectLength, int rectWidth, SolutionCell cell, CutTree left, CutTree right)
+        {
+            this.Length = rectLength;
+            this.Width = rectWidth;
+            this.Kind = cell.Type;
+            this.IndexOfCutOrPiece = cell.Index;
+            this.CutDirection = cell.DirOfCut;
+            this.Left = left;
+            this.Right = right;
+        }
     }
 
 }
