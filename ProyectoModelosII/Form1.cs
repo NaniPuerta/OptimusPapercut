@@ -25,6 +25,7 @@ namespace ProyectoModelosII
         Color wasteFillColor;
         Color wasteBorderColor;
         Color pieceBorderColor;
+        Color pieceNameColor;
 
         Pen cutPen;
         Pen wastePen;
@@ -39,6 +40,7 @@ namespace ProyectoModelosII
         bool paint_cuts;
         bool paint_waste;
         bool paint_pieces;
+        bool paint_piece_name;
 
         Brush pieceNameBrush;
 
@@ -113,18 +115,15 @@ namespace ProyectoModelosII
             paint_cuts = true;
             paint_pieces = true;
             paint_waste = true;
+            paint_piece_name = true;
 
             cutColor = Color.Black;
-            cutPen = new Pen(cutColor);
-
             wasteBorderColor = Color.DarkGray;
             wasteFillColor = Color.DarkGray;
-            wastePen = new Pen(wasteBorderColor);
-            wasteBrush = new SolidBrush(wasteFillColor);
-
             pieceBorderColor = Color.Black;
-            piecePen = new Pen(pieceBorderColor);
-            pieceNameBrush = Brushes.Black;
+            pieceNameColor = Color.Black;
+
+            UpdateColors();
         }
 
         #endregion
@@ -442,13 +441,16 @@ namespace ProyectoModelosII
             stringFormat.Alignment = StringAlignment.Center;
             stringFormat.LineAlignment = StringAlignment.Center;
 
-            float minLength = Math.Min(piece.Size.Height, piece.Size.Width);
-            float minSize = Math.Min(minLength - 7, 30);
-            if(minSize > 7)
+            if (paint_piece_name)
             {
-                Font font = new Font("Arial", minSize, FontStyle.Bold, GraphicsUnit.Pixel);
-                graphics.DrawString(piece.Name, font, pieceNameBrush, rect, stringFormat);
+                float minSize = Math.Min(Math.Min(piece.Size.Height, piece.Size.Width) - 7, 30);
+                if (minSize > 7)
+                {
+                    Font font = new Font("Arial", minSize, FontStyle.Bold, GraphicsUnit.Pixel);
+                    graphics.DrawString(piece.Name, font, pieceNameBrush, rect, stringFormat);
+                }
             }
+
             graphics.DrawRectangles(piecePen, new RectangleF[] { rect });
         }
 
@@ -608,6 +610,27 @@ namespace ProyectoModelosII
             button_changeData.Enabled = true;
         }
 
+        private void UpdateColors()
+        {
+            cutPen = new Pen(cutColor);
+            wastePen = new Pen(wasteBorderColor);
+            wasteBrush = new SolidBrush(wasteFillColor);
+            piecePen = new Pen(pieceBorderColor);
+            pieceNameBrush = new SolidBrush(pieceNameColor);
+        }
+
+        private void ShowDrawingOptions()
+        {
+            groupBox_Drawing.Visible = false;
+            groupBox_stock.Width += groupBox_Drawing.Width + 7;
+        }
+
+        private void HideDrawingOptions()
+        {
+            groupBox_Drawing.Visible = true;
+            groupBox_stock.Width -= groupBox_Drawing.Width + 7;
+        }
+
         #endregion
 
         #region Events
@@ -638,29 +661,9 @@ namespace ProyectoModelosII
             Solve();
         }
 
-        private void button_loadData_Click(object sender, EventArgs e)
-        {
-            LoadData();
-        }
-
         private void button_changeData_Click(object sender, EventArgs e)
         {
             UnlockScreen();
-        }
-
-        private void button_defaultDimensions_Click(object sender, EventArgs e)
-        {
-            SetDefaultDimensions();
-        }
-
-        private void button_emptyPieces_Click(object sender, EventArgs e)
-        {
-            ClearPieces();
-        }
-
-        private void button_saveData_Click(object sender, EventArgs e)
-        {
-            SaveData();
         }
 
         private void numericUpDown_WidthStock_ValueChanged(object sender, EventArgs e)
@@ -709,13 +712,6 @@ namespace ProyectoModelosII
                     PaintPiece(piece, graphics);
         }
 
-        private void button_Clear_Click(object sender, EventArgs e)
-        {
-            UnlockScreen();
-            ClearPieces();
-            SetDefaultDimensions();
-        }
-
         private void Form1_ResizeEnd(object sender, EventArgs e)
         {
             
@@ -724,6 +720,126 @@ namespace ProyectoModelosII
         private void panel_pb_SizeChanged(object sender, EventArgs e)
         {
             ResizePB();
+        }
+
+        private void toolStrip1_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            string name = e.ClickedItem.Name;
+
+            if(name == "button_Clear")
+            {
+                UnlockScreen();
+                ClearPieces();
+                SetDefaultDimensions();
+            }
+            else if(name == "button_loadData")
+            {
+                LoadData();
+            }
+            else if (name == "button_saveData")
+            {
+                SaveData();
+            }
+            else if (name == "button_defaultDimensions")
+            {
+                SetDefaultDimensions();
+            }
+            else if (name == "button_emptyPieces")
+            {
+                ClearPieces();
+            }
+            else if (name == "toolStripButton_drawingOptions")
+            {
+                bool check = toolStripButton_drawingOptions.Checked = !toolStripButton_drawingOptions.Checked;
+                if (!check)
+                    ShowDrawingOptions();
+                else
+                    HideDrawingOptions();
+            }
+        }
+
+        private void panel_cutColor_Click(object sender, EventArgs e)
+        {
+            if(colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Color color = colorDialog1.Color;
+                panel_cutColor.BackColor = color;
+                cutColor = color;
+                UpdateColors();
+                ShowSolution();
+            }
+        }
+
+        private void panel_WasteBorderColor_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Color color = colorDialog1.Color;
+                panel_WasteBorderColor.BackColor = color;
+                wasteBorderColor = color;
+                UpdateColors();
+                ShowSolution();
+            }
+        }
+
+        private void panel_WasteFillColor_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Color color = colorDialog1.Color;
+                panel_WasteFillColor.BackColor = color;
+                wasteFillColor = color;
+                UpdateColors();
+                ShowSolution();
+            }
+        }
+
+        private void panel_PieceBorderColor_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Color color = colorDialog1.Color;
+                panel_PieceBorderColor.BackColor = color;
+                pieceBorderColor = color;
+                UpdateColors();
+                ShowSolution();
+            }
+        }
+
+        private void panel_NumberColor_Click(object sender, EventArgs e)
+        {
+            if (colorDialog1.ShowDialog() == DialogResult.OK)
+            {
+                Color color = colorDialog1.Color;
+                panel_NumberColor.BackColor = color;
+                pieceNameColor = color;
+                UpdateColors();
+                ShowSolution();
+            }
+        }
+
+        private void checkBox_cuts_CheckedChanged(object sender, EventArgs e)
+        {
+            paint_cuts = checkBox_cuts.Checked;
+            ShowSolution();
+        }
+
+        private void checkBox_wastes_CheckedChanged(object sender, EventArgs e)
+        {
+            paint_waste = checkBox_wastes.Checked;
+            ShowSolution();
+        }
+
+        private void checkBox_pieces_CheckedChanged(object sender, EventArgs e)
+        {
+            checkBox_pieceNumber.Enabled = paint_pieces = checkBox_pieces.Checked;
+            ShowSolution();
+        }
+
+        private void checkBox_pieceNumber_CheckedChanged(object sender, EventArgs e)
+        {
+            paint_piece_name = checkBox_pieceNumber.Checked;
+            ShowSolution();
         }
 
         #endregion

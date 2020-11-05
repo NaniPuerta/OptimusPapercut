@@ -1,7 +1,6 @@
 C:\Users\Nani\source\repos\ProyectoModelosII\AuxiliaryTools\bin\Debug\netcoreapp3.1\AuxiliaryTools.deps.json
 C:\Users\Nani\source\repos\ProyectoModelosII\AuxiliaryTools\bin\Debug\netcoreapp3.1\AuxiliaryTools.dll
 C:\Users\Nani\source\repos\ProyectoModelosII\AuxiliaryTools\bin\Debug\netcoreapp3.1\AuxiliaryTools.pdb
-C:\Users\Nani\source\repos\ProyectoModelosII\AuxiliaryTools\obj\Debug\netcoreapp3.1\AuxiliaryTools.csprojAssemblyReference.cache
 C:\Users\Nani\source\repos\ProyectoModelosII\AuxiliaryTools\obj\Debug\netcoreapp3.1\AuxiliaryTools.AssemblyInfoInputs.cache
 C:\Users\Nani\source\repos\ProyectoModelosII\AuxiliaryTools\obj\Debug\netcoreapp3.1\AuxiliaryTools.AssemblyInfo.cs
 C:\Users\Nani\source\repos\ProyectoModelosII\AuxiliaryTools\obj\Debug\netcoreapp3.1\AuxiliaryTools.csproj.CoreCompileInputs.cache

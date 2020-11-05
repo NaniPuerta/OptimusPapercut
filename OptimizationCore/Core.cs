@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 using System.Collections;
+using System.Runtime.CompilerServices;
 
 namespace OptimizationCore
 {
@@ -176,11 +177,66 @@ namespace OptimizationCore
                 }
             }
             for (int i = 0; i < solution.Length; i++)
-            {
-                
+            {                
                 solution[i].SetRepetition(RoundSolution(invBb[i]));
             }
+            PostOptimize(solution);
             return solution;
+        }
+
+        private void PostOptimize(CutPattern[] solution)
+        {
+            int[] totalByPieces = GetTotalObtainedByPieces(solution);
+            List<int> pats = new List<int>();
+            for (int i = 0; i < solution.Length; i++)
+            {
+                for (int j = 0; j < solution[i].timesRepeated; j++)
+                {
+                    pats.Add(i);
+                }
+            }
+
+            for (int i = 0; i < pats.Count; i++)
+            {
+                int index = pats[i];
+                if (solution[index].timesRepeated == 0) continue;
+                if (CanEliminatePattern(totalByPieces, solution[index].variant_vector, problem.demands))
+                {
+                    solution[index].AddRepetition(-1);
+                    UpdateTotal(totalByPieces, solution[index].variant_vector);
+                }
+            }
+
+        }
+
+        private bool CanEliminatePattern(int[] totalPieces, double[] patVariant, int[] demands)
+        {
+            for (int i = 0; i < totalPieces.Length; i++)
+            {
+                if (totalPieces[i] - (int)patVariant[i] < demands[i])
+                    return false;
+            }
+            return true;
+        }
+
+        private void UpdateTotal(int[] total, double[] variant)
+        {
+            for (int i = 0; i < total.Length; i++)
+            {
+                total[i] -= (int)variant[i];
+            }
+        }
+        private int[] GetTotalObtainedByPieces(CutPattern[] solution)
+        {
+            int[] result = new int[solution.Length];
+            foreach (CutPattern pat in solution)
+            {
+                for (int i = 0; i < pat.variant_vector.Length; i++)
+                {
+                    result[i] += (int)pat.variant_vector[i]*pat.timesRepeated;
+                }
+            }
+            return result;
         }
 
         private int RoundSolution(double value)
