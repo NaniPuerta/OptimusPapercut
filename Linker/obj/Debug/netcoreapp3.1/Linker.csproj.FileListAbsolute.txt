@@ -1,0 +1,16 @@
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\bin\Debug\netcoreapp3.1\Linker.deps.json
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\bin\Debug\netcoreapp3.1\Linker.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\bin\Debug\netcoreapp3.1\Linker.pdb
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\bin\Debug\netcoreapp3.1\AuxiliaryTools.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\bin\Debug\netcoreapp3.1\OptimizationCore.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\bin\Debug\netcoreapp3.1\OptimizationCore.pdb
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\bin\Debug\netcoreapp3.1\AuxiliaryTools.pdb
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\obj\Debug\netcoreapp3.1\Linker.csprojAssemblyReference.cache
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\obj\Debug\netcoreapp3.1\Linker.AssemblyInfoInputs.cache
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\obj\Debug\netcoreapp3.1\Linker.AssemblyInfo.cs
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\obj\Debug\netcoreapp3.1\Linker.csproj.CoreCompileInputs.cache
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\obj\Debug\netcoreapp3.1\Linker.csproj.CopyComplete
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\obj\Debug\netcoreapp3.1\Linker.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\obj\Debug\netcoreapp3.1\Linker.pdb
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\bin\Debug\netcoreapp3.1\Worker.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\Linker\bin\Debug\netcoreapp3.1\Worker.pdb

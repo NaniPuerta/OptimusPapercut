@@ -1,0 +1,61 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Linker/1.0.0": {
+        "dependencies": {
+          "OptimizationCore": "1.0.0",
+          "Worker": "1.0.0"
+        },
+        "runtime": {
+          "Linker.dll": {}
+        }
+      },
+      "AuxiliaryTools/1.0.0": {
+        "runtime": {
+          "AuxiliaryTools.dll": {}
+        }
+      },
+      "OptimizationCore/1.0.0": {
+        "dependencies": {
+          "AuxiliaryTools": "1.0.0",
+          "Worker": "1.0.0"
+        },
+        "runtime": {
+          "OptimizationCore.dll": {}
+        }
+      },
+      "Worker/1.0.0": {
+        "runtime": {
+          "Worker.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Linker/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "AuxiliaryTools/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "OptimizationCore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Worker/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

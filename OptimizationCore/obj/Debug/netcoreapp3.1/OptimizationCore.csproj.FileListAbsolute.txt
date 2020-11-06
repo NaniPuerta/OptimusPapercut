@@ -1,0 +1,14 @@
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Debug\netcoreapp3.1\OptimizationCore.csprojAssemblyReference.cache
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Debug\netcoreapp3.1\OptimizationCore.AssemblyInfoInputs.cache
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Debug\netcoreapp3.1\OptimizationCore.AssemblyInfo.cs
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Debug\netcoreapp3.1\OptimizationCore.csproj.CoreCompileInputs.cache
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\bin\Debug\netcoreapp3.1\OptimizationCore.deps.json
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\bin\Debug\netcoreapp3.1\OptimizationCore.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\bin\Debug\netcoreapp3.1\OptimizationCore.pdb
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\bin\Debug\netcoreapp3.1\AuxiliaryTools.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\bin\Debug\netcoreapp3.1\AuxiliaryTools.pdb
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Debug\netcoreapp3.1\OptimizationCore.csproj.CopyComplete
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Debug\netcoreapp3.1\OptimizationCore.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Debug\netcoreapp3.1\OptimizationCore.pdb
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\bin\Debug\netcoreapp3.1\Worker.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\bin\Debug\netcoreapp3.1\Worker.pdb
