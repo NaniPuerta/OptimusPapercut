@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AuxiliaryTools\AuxiliaryTools.csproj" />
-    <ProjectReference Include="..\Worker\Worker.csproj" />
+    <ProjectReference Include="..\AuxiliaryTools\AuxiliaryTools.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Worker\Worker.csproj">
+      <Private>false</Private>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

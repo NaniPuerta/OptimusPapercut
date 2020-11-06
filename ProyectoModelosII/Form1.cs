@@ -13,7 +13,6 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.IO;
 using System.Reflection;
-using System.Windows.Markup;
 using System.Threading;
 using Worker;
 

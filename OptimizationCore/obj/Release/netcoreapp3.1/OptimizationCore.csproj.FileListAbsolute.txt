@@ -1,0 +1,9 @@
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\bin\Release\netcoreapp3.1\OptimizationCore.deps.json
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\bin\Release\netcoreapp3.1\OptimizationCore.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\bin\Release\netcoreapp3.1\OptimizationCore.pdb
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Release\netcoreapp3.1\OptimizationCore.csprojAssemblyReference.cache
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Release\netcoreapp3.1\OptimizationCore.AssemblyInfoInputs.cache
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Release\netcoreapp3.1\OptimizationCore.AssemblyInfo.cs
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Release\netcoreapp3.1\OptimizationCore.csproj.CoreCompileInputs.cache
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Release\netcoreapp3.1\OptimizationCore.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Release\netcoreapp3.1\OptimizationCore.pdb

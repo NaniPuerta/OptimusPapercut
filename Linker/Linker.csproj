@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\OptimizationCore\OptimizationCore.csproj" />
-    <ProjectReference Include="..\Worker\Worker.csproj" />
+    <ProjectReference Include="..\OptimizationCore\OptimizationCore.csproj">
+      <Private>false</Private>
+    </ProjectReference>
+    <ProjectReference Include="..\Worker\Worker.csproj">
+      <Private>false</Private>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>
