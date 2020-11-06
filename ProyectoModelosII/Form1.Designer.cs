@@ -799,6 +799,7 @@
             this.Controls.Add(this.toolStrip1);
             this.Controls.Add(this.groupBox_Solution);
             this.Controls.Add(this.groupBox_dataEntry);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(970, 450);
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
