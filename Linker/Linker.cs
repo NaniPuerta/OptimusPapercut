@@ -2,14 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using OptimizationCore;
+using Worker;
 
 namespace Linker
 {
     public static class Linker
     {
-        
 
-        public static CutPattern[] FindSolution(IEnumerable<int> pieceLengths, IEnumerable<int> pieceWidths, IEnumerable<int> pieceDemands, int stockLength, int stockWidth, int stockCost)
+        public static void FindSolution(IEnumerable<int> pieceLengths, IEnumerable<int> pieceWidths, IEnumerable<int> pieceDemands, int stockLength, int stockWidth, int stockCost, Worker.Worker worker, out CutPattern[] solution)
         {
             int[] pLengths = pieceLengths.ToArray<int>();
             int[] pWidths = pieceWidths.ToArray<int>();
@@ -17,8 +17,10 @@ namespace Linker
 
             OptimizationProblem problem = new OptimizationProblem(stockLength, stockWidth, stockCost, pLengths, pWidths, pDemands);
             Simplex simp = new Simplex(problem);
-            CutPattern[] solution = simp.Solve();
-            return solution;
+            solution = simp.Solve(worker);
+
+            worker.SetMax();
+            worker.CallFinish();
         }
     }
 }

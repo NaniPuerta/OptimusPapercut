@@ -14,6 +14,8 @@ using System.Text.Json.Serialization;
 using System.IO;
 using System.Reflection;
 using System.Windows.Markup;
+using System.Threading;
+using Worker;
 
 namespace ProyectoModelosII
 {
@@ -80,6 +82,9 @@ namespace ProyectoModelosII
 
         PieceColors pieceColors;
 
+        int progressBarSeparation;
+        int progressBarLocationX;
+
         #endregion
 
         #region Constructors
@@ -124,6 +129,9 @@ namespace ProyectoModelosII
             pieceNameColor = Color.Black;
 
             UpdateColors();
+
+            progressBarSeparation = button_prevPattern.Location.X - (progressBar_calculating.Location.X + progressBar_calculating.Width);
+            progressBarLocationX = progressBar_calculating.Location.X;
         }
 
         #endregion
@@ -196,30 +204,16 @@ namespace ProyectoModelosII
 
         private void Solve()
         {
-
+            progressBar_calculating.Visible = true;
+            progressBar_calculating.Value = 0;
             button_start.Text = "Calculando...";
+            button_start.BackColor = Color.IndianRed;
             button_start.Refresh();
-            solution = Linker.Linker.FindSolution(pieceLengths, pieceWidths, pieceDemands, stockLength, stockWidth, stockCost);
 
-            CleanSolution();
+            Thread solutionThread = new Thread(
+                new ThreadStart(() => Linker.Linker.FindSolution(pieceLengths, pieceWidths, pieceDemands, stockLength, stockWidth, stockCost, new Worker.Worker(progressBar_calculating), out solution)));
 
-            button_start.Text = "Contando...";
-            button_start.Refresh();
-            CalculatePieceCount();
-
-            actual_solution_index = 0;
-            label_pattern.Visible = true;
-            label_PatternRep.Visible = true;
-            label_TotalMat.Visible = true;
-            
-            textBox_totalMaterial.Text = solution.Sum(elem => elem.timesRepeated).ToString();
-
-            button_start.Text = "Dibujando...";
-            button_start.Refresh();
-            ShowSolution();
-
-            button_start.Text = "Solución calculada";
-            button_start.Refresh();
+            solutionThread.Start();
         }
 
         private void ResizePB()
@@ -588,6 +582,7 @@ namespace ProyectoModelosII
             textBox_cur_pattern.Text = "";
 
             button_start.Text = "Calcular Solución";
+            button_start.BackColor = Color.White;
 
             ClearPB();
             EmptyObtainedColumn();
@@ -606,8 +601,6 @@ namespace ProyectoModelosII
                 button_loadData.Enabled =
                 button_start.Enabled =
                 false;
-
-            button_changeData.Enabled = true;
         }
 
         private void UpdateColors()
@@ -629,6 +622,34 @@ namespace ProyectoModelosII
         {
             groupBox_Drawing.Visible = true;
             groupBox_stock.Width -= groupBox_Drawing.Width + 7;
+        }
+        
+        private void FinishedCalculations()
+        {
+            CleanSolution();
+
+            button_start.Text = "Contando...";
+            button_start.Refresh();
+            CalculatePieceCount();
+
+            actual_solution_index = 0;
+            label_pattern.Visible = true;
+            label_PatternRep.Visible = true;
+            label_TotalMat.Visible = true;
+
+            textBox_totalMaterial.Text = solution.Sum(elem => elem.timesRepeated).ToString();
+
+            button_start.Text = "Dibujando...";
+            button_start.Refresh();
+            ShowSolution();
+
+            button_start.Text = "Solución calculada";
+            button_start.BackColor = Color.MediumSeaGreen;
+            button_start.Refresh();
+
+            progressBar_calculating.Visible = false;
+
+            button_changeData.Enabled = true;
         }
 
         #endregion
@@ -840,6 +861,17 @@ namespace ProyectoModelosII
         {
             paint_piece_name = checkBox_pieceNumber.Checked;
             ShowSolution();
+        }
+
+        private void progressBar_calculating_TabIndexChanged(object sender, EventArgs e)
+        {
+            FinishedCalculations();
+        }
+
+        private void button_prevPattern_LocationChanged(object sender, EventArgs e)
+        {
+            progressBar_calculating.Location = new Point(progressBarLocationX, button_prevPattern.Location.Y);
+            progressBar_calculating.Width = button_prevPattern.Location.X - progressBarSeparation - progressBarLocationX;
         }
 
         #endregion

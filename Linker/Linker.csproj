@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\OptimizationCore\OptimizationCore.csproj" />
+    <ProjectReference Include="..\Worker\Worker.csproj" />
   </ItemGroup>
 
 </Project>

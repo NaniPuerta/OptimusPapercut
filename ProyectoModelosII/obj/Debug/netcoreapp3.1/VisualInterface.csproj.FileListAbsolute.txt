@@ -21,3 +21,5 @@ C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcore
 C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\ProyectoModelosII.Form1.resources
 C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\VisualInterface.csproj.GenerateResource.cache
 C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\obj\Debug\netcoreapp3.1\VisualInterface.Properties.Resources.resources
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\bin\Debug\netcoreapp3.1\Worker.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\ProyectoModelosII\bin\Debug\netcoreapp3.1\Worker.pdb

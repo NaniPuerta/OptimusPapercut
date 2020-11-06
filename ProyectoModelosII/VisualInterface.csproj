@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Linker\Linker.csproj" />
     <ProjectReference Include="..\OptimizationCore\OptimizationCore.csproj" />
+    <ProjectReference Include="..\Worker\Worker.csproj" />
   </ItemGroup>
 
   <ItemGroup>

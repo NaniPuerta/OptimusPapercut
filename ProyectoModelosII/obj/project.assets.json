@@ -16,27 +16,48 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "OptimizationCore": "1.0.0"
+          "OptimizationCore": "1.0.0",
+          "Worker": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Linker.dll": {}
         },
         "runtime": {
           "bin/placeholder/Linker.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
       },
       "OptimizationCore/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
         "dependencies": {
-          "AuxiliaryTools": "1.0.0"
+          "AuxiliaryTools": "1.0.0",
+          "Worker": "1.0.0"
         },
         "compile": {
           "bin/placeholder/OptimizationCore.dll": {}
         },
         "runtime": {
           "bin/placeholder/OptimizationCore.dll": {}
-        }
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
+      },
+      "Worker/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/Worker.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Worker.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.WindowsDesktop.App.WindowsForms"
+        ]
       }
     }
   },
@@ -55,12 +76,18 @@
       "type": "project",
       "path": "../OptimizationCore/OptimizationCore.csproj",
       "msbuildProject": "../OptimizationCore/OptimizationCore.csproj"
+    },
+    "Worker/1.0.0": {
+      "type": "project",
+      "path": "../Worker/Worker.csproj",
+      "msbuildProject": "../Worker/Worker.csproj"
     }
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
       "Linker >= 1.0.0",
-      "OptimizationCore >= 1.0.0"
+      "OptimizationCore >= 1.0.0",
+      "Worker >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -102,6 +129,9 @@
             },
             "C:\\Users\\Nani\\source\\repos\\ProyectoModelosII\\OptimizationCore\\OptimizationCore.csproj": {
               "projectPath": "C:\\Users\\Nani\\source\\repos\\ProyectoModelosII\\OptimizationCore\\OptimizationCore.csproj"
+            },
+            "C:\\Users\\Nani\\source\\repos\\ProyectoModelosII\\Worker\\Worker.csproj": {
+              "projectPath": "C:\\Users\\Nani\\source\\repos\\ProyectoModelosII\\Worker\\Worker.csproj"
             }
           }
         }

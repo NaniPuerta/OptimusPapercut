@@ -10,3 +10,5 @@ C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\bin\Debug\netcorea
 C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Debug\netcoreapp3.1\OptimizationCore.csproj.CopyComplete
 C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Debug\netcoreapp3.1\OptimizationCore.dll
 C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\obj\Debug\netcoreapp3.1\OptimizationCore.pdb
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\bin\Debug\netcoreapp3.1\Worker.dll
+C:\Users\Nani\source\repos\ProyectoModelosII\OptimizationCore\bin\Debug\netcoreapp3.1\Worker.pdb

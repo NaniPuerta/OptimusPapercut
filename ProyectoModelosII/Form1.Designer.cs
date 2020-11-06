@@ -66,12 +66,13 @@
             this.button_prevPattern = new System.Windows.Forms.Button();
             this.button_nextPattern = new System.Windows.Forms.Button();
             this.groupBox_Solution = new System.Windows.Forms.GroupBox();
+            this.progressBar_calculating = new System.Windows.Forms.ProgressBar();
             this.textBox_totalMaterial = new System.Windows.Forms.Label();
             this.textBox_PatternRep = new System.Windows.Forms.Label();
-            this.textBox_cur_pattern = new System.Windows.Forms.Label();
             this.label_TotalMat = new System.Windows.Forms.Label();
             this.label_PatternRep = new System.Windows.Forms.Label();
             this.panel_pb = new System.Windows.Forms.Panel();
+            this.textBox_cur_pattern = new System.Windows.Forms.Label();
             this.openFileDialog_data = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog_data = new System.Windows.Forms.SaveFileDialog();
             this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -550,27 +551,30 @@
             // button_prevPattern
             // 
             this.button_prevPattern.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button_prevPattern.BackColor = System.Drawing.Color.White;
+            this.button_prevPattern.BackColor = System.Drawing.SystemColors.Control;
             this.button_prevPattern.Enabled = false;
             this.button_prevPattern.FlatAppearance.BorderSize = 0;
+            this.button_prevPattern.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_prevPattern.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button_prevPattern.Location = new System.Drawing.Point(286, 701);
+            this.button_prevPattern.Location = new System.Drawing.Point(304, 701);
             this.button_prevPattern.Name = "button_prevPattern";
             this.button_prevPattern.Size = new System.Drawing.Size(41, 39);
             this.button_prevPattern.TabIndex = 3;
             this.button_prevPattern.Text = "◄";
             this.button_prevPattern.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             this.button_prevPattern.UseVisualStyleBackColor = false;
+            this.button_prevPattern.LocationChanged += new System.EventHandler(this.button_prevPattern_LocationChanged);
             this.button_prevPattern.Click += new System.EventHandler(this.button_prevPattern_Click);
             // 
             // button_nextPattern
             // 
             this.button_nextPattern.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.button_nextPattern.BackColor = System.Drawing.Color.White;
+            this.button_nextPattern.BackColor = System.Drawing.SystemColors.Control;
             this.button_nextPattern.Enabled = false;
             this.button_nextPattern.FlatAppearance.BorderSize = 0;
+            this.button_nextPattern.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.button_nextPattern.Font = new System.Drawing.Font("Arial Narrow", 13.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.button_nextPattern.Location = new System.Drawing.Point(476, 701);
+            this.button_nextPattern.Location = new System.Drawing.Point(463, 701);
             this.button_nextPattern.Name = "button_nextPattern";
             this.button_nextPattern.Size = new System.Drawing.Size(41, 39);
             this.button_nextPattern.TabIndex = 3;
@@ -584,22 +588,32 @@
             this.groupBox_Solution.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox_Solution.Controls.Add(this.progressBar_calculating);
             this.groupBox_Solution.Controls.Add(this.textBox_totalMaterial);
             this.groupBox_Solution.Controls.Add(this.textBox_PatternRep);
-            this.groupBox_Solution.Controls.Add(this.textBox_cur_pattern);
             this.groupBox_Solution.Controls.Add(this.label_TotalMat);
             this.groupBox_Solution.Controls.Add(this.label_PatternRep);
             this.groupBox_Solution.Controls.Add(this.pictureBox_sol);
             this.groupBox_Solution.Controls.Add(this.button_nextPattern);
-            this.groupBox_Solution.Controls.Add(this.label_pattern);
             this.groupBox_Solution.Controls.Add(this.button_prevPattern);
             this.groupBox_Solution.Controls.Add(this.panel_pb);
+            this.groupBox_Solution.Controls.Add(this.textBox_cur_pattern);
+            this.groupBox_Solution.Controls.Add(this.label_pattern);
             this.groupBox_Solution.Location = new System.Drawing.Point(387, 26);
             this.groupBox_Solution.Name = "groupBox_Solution";
             this.groupBox_Solution.Size = new System.Drawing.Size(1081, 748);
             this.groupBox_Solution.TabIndex = 5;
             this.groupBox_Solution.TabStop = false;
             this.groupBox_Solution.Text = "Patrones de corte";
+            // 
+            // progressBar_calculating
+            // 
+            this.progressBar_calculating.Location = new System.Drawing.Point(9, 701);
+            this.progressBar_calculating.Name = "progressBar_calculating";
+            this.progressBar_calculating.Size = new System.Drawing.Size(289, 37);
+            this.progressBar_calculating.TabIndex = 7;
+            this.progressBar_calculating.Visible = false;
+            this.progressBar_calculating.TabIndexChanged += new System.EventHandler(this.progressBar_calculating_TabIndexChanged);
             // 
             // textBox_totalMaterial
             // 
@@ -620,16 +634,6 @@
             this.textBox_PatternRep.Size = new System.Drawing.Size(65, 20);
             this.textBox_PatternRep.TabIndex = 5;
             this.textBox_PatternRep.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            // 
-            // textBox_cur_pattern
-            // 
-            this.textBox_cur_pattern.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
-            this.textBox_cur_pattern.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.textBox_cur_pattern.Location = new System.Drawing.Point(402, 708);
-            this.textBox_cur_pattern.Name = "textBox_cur_pattern";
-            this.textBox_cur_pattern.Size = new System.Drawing.Size(65, 20);
-            this.textBox_cur_pattern.TabIndex = 5;
-            this.textBox_cur_pattern.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // label_TotalMat
             // 
@@ -666,6 +670,16 @@
             this.panel_pb.Size = new System.Drawing.Size(1064, 665);
             this.panel_pb.TabIndex = 6;
             this.panel_pb.SizeChanged += new System.EventHandler(this.panel_pb_SizeChanged);
+            // 
+            // textBox_cur_pattern
+            // 
+            this.textBox_cur_pattern.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+            this.textBox_cur_pattern.Font = new System.Drawing.Font("Segoe UI", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.textBox_cur_pattern.Location = new System.Drawing.Point(402, 708);
+            this.textBox_cur_pattern.Name = "textBox_cur_pattern";
+            this.textBox_cur_pattern.Size = new System.Drawing.Size(65, 20);
+            this.textBox_cur_pattern.TabIndex = 5;
+            this.textBox_cur_pattern.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // openFileDialog_data
             // 
@@ -871,6 +885,7 @@
         private System.Windows.Forms.Label label_wasteFill;
         private System.Windows.Forms.ToolStripButton toolStripButton_drawingOptions;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator3;
+        private System.Windows.Forms.ProgressBar progressBar_calculating;
     }
 }
 

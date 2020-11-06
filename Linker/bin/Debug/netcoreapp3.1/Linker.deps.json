@@ -8,7 +8,8 @@
     ".NETCoreApp,Version=v3.1": {
       "Linker/1.0.0": {
         "dependencies": {
-          "OptimizationCore": "1.0.0"
+          "OptimizationCore": "1.0.0",
+          "Worker": "1.0.0"
         },
         "runtime": {
           "Linker.dll": {}
@@ -21,10 +22,16 @@
       },
       "OptimizationCore/1.0.0": {
         "dependencies": {
-          "AuxiliaryTools": "1.0.0"
+          "AuxiliaryTools": "1.0.0",
+          "Worker": "1.0.0"
         },
         "runtime": {
           "OptimizationCore.dll": {}
+        }
+      },
+      "Worker/1.0.0": {
+        "runtime": {
+          "Worker.dll": {}
         }
       }
     }
@@ -41,6 +48,11 @@
       "sha512": ""
     },
     "OptimizationCore/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "Worker/1.0.0": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
